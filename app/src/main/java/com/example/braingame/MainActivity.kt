@@ -57,10 +57,15 @@ class MainActivity : AppCompatActivity() {
         ) as ViewGroup
         val grid: GridLayout=viewGroup.findViewById(R.id.grid_layout)
         var i=0
+        var rand: Int = 0
         while(i<4){
             if(i != tag){
                 textview = grid.getChildAt(i) as TextView
-                textview.text = "${Random.nextInt(0,500)}"
+                rand = Random.nextInt(0,500)
+                if(rand == sum){
+                    rand += 1
+                }
+                textview.text = "$rand"
             }
             else{
                 textview = grid.getChildAt(i) as TextView
@@ -70,13 +75,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
     fun answer(view: View){
-        val counter :TextView = view as TextView
-        val tappedCounter = counter.getTag().toString().toInt()
-        if(tag == tappedCounter){
-            correct_answers++
-        }
-        result.text = "$correct_answers"+"/"+"$total_questions"
         if(!timeOut) {
+            val counter :TextView = view as TextView
+            val tappedCounter = counter.getTag().toString().toInt()
+            if(tag == tappedCounter){
+                correct_answers++
+            }
+            result.text = "$correct_answers"+"/"+"$total_questions"
             questionOptions()
         }
     }
